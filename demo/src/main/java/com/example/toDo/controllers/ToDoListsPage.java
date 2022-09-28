@@ -24,14 +24,14 @@ public class ToDoListsPage {
     private ToDoListsRepository toDoListsRepository;
 
     @GetMapping("/toDoListsPage")
-    private String toDoListsPage(Model model) {
+    private String toDoListsPage( Model model) {
         Iterable<ToDoLists> toDoLists = toDoListsRepository.findAll();
         model.addAttribute("toDoLists", toDoLists);
         return "toDoListsPage";
     }
 
     @GetMapping("/addToDoLists")
-    private String addToDo(Model model) {
+    private String addToDo( Model model) {
         LocalDateTime date = LocalDateTime.from(LocalDateTime.now());
         model.addAttribute("date",date);
         return "addToDoLists";

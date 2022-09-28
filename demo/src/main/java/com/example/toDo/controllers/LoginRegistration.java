@@ -4,6 +4,7 @@ import com.example.toDo.models.Roles;
 import com.example.toDo.models.Users;
 import com.example.toDo.repo.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -15,6 +16,7 @@ import java.util.stream.Stream;
 
 @Controller
 public class LoginRegistration {
+
     @Autowired
     private UsersRepository usersRepository;
 
@@ -30,17 +32,16 @@ public class LoginRegistration {
     }
 
     @PostMapping("/home/registration")
-    public String userRegistration(Users users, Model model) {
-        Users usersFromDb = usersRepository.findByLogin(users.getLogin());
+    public String userRegistration(Users user, Model model) {
+        Users usersFromDb = usersRepository.findByLogin(user.getLogin());
         if(usersFromDb !=null){
             model.addAttribute("userExist","User Exist");
             return "registration";
         }
-        users.setRoles(Collections.singleton(Roles.User));
-        usersRepository.save(users);
-    return "/home/sign";
+        user.setRoles(Collections.singleton(Roles.User));
+        usersRepository.save(user);
+    return "redirect:/home/sign";
     }
-
 }
 
 
