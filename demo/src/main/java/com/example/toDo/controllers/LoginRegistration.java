@@ -5,6 +5,7 @@ import com.example.toDo.models.Users;
 import com.example.toDo.repo.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,6 +20,9 @@ public class LoginRegistration {
 
     @Autowired
     private UsersRepository usersRepository;
+
+    private PasswordEncoder passwordEncoder;
+
 
     @GetMapping("/home/sign")
     public String sign(Model model) {
@@ -39,6 +43,7 @@ public class LoginRegistration {
             return "registration";
         }
         user.setRoles(Collections.singleton(Roles.User));
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         usersRepository.save(user);
     return "redirect:/home/sign";
     }

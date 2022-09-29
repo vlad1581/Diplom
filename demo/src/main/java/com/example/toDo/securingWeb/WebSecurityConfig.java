@@ -1,5 +1,6 @@
 package com.example.toDo.securingWeb;
 
+import com.example.toDo.models.Users;
 import com.example.toDo.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -13,6 +14,7 @@ import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.stereotype.Component;
@@ -22,6 +24,8 @@ import org.springframework.stereotype.Component;
 public class WebSecurityConfig {
     @Autowired
     private UserService userService;
+
+    private PasswordEncoder passwordEncoder;
 
 
     @Bean
@@ -46,7 +50,7 @@ public class WebSecurityConfig {
 
    protected void SecurityFilterChain (AuthenticationManagerBuilder auth) throws Exception{
        auth.userDetailsService(userService)
-               .passwordEncoder(NoOpPasswordEncoder.getInstance());
+               .passwordEncoder(passwordEncoder);
    }
 
 }
