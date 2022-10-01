@@ -20,8 +20,8 @@ public class ToDoLists {
     private Long toDoListsId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id_user_id")
-    private Users userId;
+    @JoinColumn(name = "user")
+    private Users user;
 
     @DateTimeFormat
     private String planningDate;
@@ -29,7 +29,8 @@ public class ToDoLists {
     @DateTimeFormat
     private String date;
 
-    private String title,notes;
+    private String title;
+    private String notes;
 
     public ToDoLists(String planningDate,String date,String title, String notes) {
         this.planningDate = planningDate;

@@ -3,9 +3,11 @@ package com.example.toDo.service;
 import com.example.toDo.models.Users;
 import com.example.toDo.repo.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,11 @@ public class UserService implements UserDetailsService {
     private UsersRepository usersRepository;
 
     private PasswordEncoder passwordEncoder;
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder(8);
+    }
+
     @Override
     public Users loadUserByUsername(String login) throws UsernameNotFoundException {
         return usersRepository.findByLogin(login);

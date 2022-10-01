@@ -21,10 +21,12 @@ import org.springframework.stereotype.Component;
 
 @Configuration
 @EnableWebSecurity
+@ComponentScan
 public class WebSecurityConfig {
     @Autowired
     private UserService userService;
 
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
 
