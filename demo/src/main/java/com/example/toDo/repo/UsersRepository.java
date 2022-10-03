@@ -1,9 +1,8 @@
 package com.example.toDo.repo;
 
-import com.example.toDo.models.Users;
+import com.example.toDo.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
-public interface UsersRepository extends JpaRepository<Users,Long> {
-    Users findByLogin(String login);
+public interface UsersRepository extends JpaRepository<User,Long> {
+     User findByLogin(String login);
 }

@@ -3,12 +3,8 @@ package com.example.toDo.models;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.format.datetime.DateFormatter;
 
 import javax.persistence.*;
-import java.text.DateFormat;
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -21,7 +17,7 @@ public class ToDoLists {
 
     @ManyToOne
     @JoinColumn(name = "user")
-    private Users user;
+    private User user;
 
     @DateTimeFormat
     private String planningDate;
