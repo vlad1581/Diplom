@@ -2,12 +2,12 @@ package com.example.toDo.models;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.hibernate.annotations.BatchSize;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.Collection;
 import java.util.Set;
@@ -21,9 +21,9 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long userId;
 
-    @NotBlank
+    @NotEmpty
     @Size(min = 2, message ="Set the login min 2")
-    private String login;
+    private String username;
 
     @NotBlank (message = "not be null")
     private String email;
@@ -36,8 +36,8 @@ public class User implements UserDetails {
     private String confirmPassword;
 
 
-    public User(String login, String email, String password) {
-        this.login = login;
+    public User(String username, String email, String password) {
+        this.username = username;
         this.email = email;
         this.password = password;
     }
@@ -45,10 +45,10 @@ public class User implements UserDetails {
     public User() {
     }
 
-    @ElementCollection(targetClass =Roles.class, fetch = FetchType.EAGER)
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
-    Set<Roles> roles;
+    Set<Role> roles;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -57,7 +57,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return username;
     }
 
     @Override

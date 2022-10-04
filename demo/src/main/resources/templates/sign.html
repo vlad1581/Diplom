@@ -23,19 +23,21 @@
             </div>
 
             <div class="modal-body p-5 pt-0">
-                <form method="post" th:action="@{/home/sign}">
+                <form method="post" action="/home/sign">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control rounded-3" id="floatingInput" placeholder="name@example.com" name="login">
-                        <label for="floatingInput">Login</label>
+                        <input type="text" class="form-control rounded-3" id="floatingInput" name="username">
+                        <label for="floatingInput">Username</label>
                     </div>
                     <div class="form-floating mb-3">
                         <input type="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password" name="password">
                         <label for="floatingPassword">Password</label>
                     </div>
                     <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign in</button>
-                    <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
                     <hr class="my-4">
                 </form>
+                <div class="form-floating mb-3">
+                    <a href="/home/registration" class="form-control rounded-3">Back To Registration</a>
+                </div>
             </div>
         </div>
     </div>

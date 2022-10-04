@@ -36,10 +36,14 @@ public class WebSecurityConfig {
                         .anyRequest().authenticated()
                 )
                 .formLogin((form)->form
-                        .loginPage("/home/sign")
+                        .loginPage("/home/sign").
+                                defaultSuccessUrl("/toDoListsPage")
                         .permitAll()
+
                         )
-                .logout(LogoutConfigurer::permitAll);
+                .logout()
+                .permitAll()
+                .logoutSuccessUrl("/home");
         return httpSecurity.build();
     }
 

@@ -1,6 +1,6 @@
 package com.example.toDo.service;
 
-import com.example.toDo.models.Roles;
+import com.example.toDo.models.Role;
 import com.example.toDo.models.User;
 import com.example.toDo.repo.UsersRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,26 +25,25 @@ public class UserService implements UserDetailsService {
     }
 
     @Override
-    public User loadUserByUsername(String login) throws UsernameNotFoundException {
-        return usersRepository.findByLogin(login);
+    public User loadUserByUsername(String username) throws UsernameNotFoundException {
+        return usersRepository.findByUsername(username);
     }
 
     public boolean userRegistration(User user) {
-        User userFromDb = usersRepository.findByLogin(user.getLogin());
+        User userFromDb = usersRepository.findByUsername(user.getUsername());
         if (userFromDb != null) {
             return false;
         }
-        user.setRoles(Collections.singleton(Roles.User));
+        user.setRoles(Collections.singleton(Role.User));
         user.setPassword(new BCryptPasswordEncoder().encode(user.getPassword()));
         usersRepository.save(user);
         return true;
     }
-}
-
      /*public User findByLoginAndPassword(String login,String password) throws UsernameNotFoundException {
         User users = loadUserByUsername(login);
-        if(users != null && passwordEncoder.matches(password, users.getPassword())){
+        if(users != null && new BCryptPasswordEncoder().matches(password, users.getPassword())){
         return users;
         }
         return null;
      }*/
+}

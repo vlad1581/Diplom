@@ -9,14 +9,14 @@ import javax.persistence.*;
 @Entity
 @Getter
 @Setter
-public class ToDoLists {
+public class ToDoList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long toDoListsId;
 
     @ManyToOne
-    @JoinColumn(name = "user")
+    @JoinColumn(name = "user_id")
     private User user;
 
     @DateTimeFormat
@@ -28,14 +28,15 @@ public class ToDoLists {
     private String title;
     private String notes;
 
-    public ToDoLists(String planningDate,String date,String title, String notes) {
+    public ToDoList(String planningDate, String date, String title, String notes,User user) {
         this.planningDate = planningDate;
         this.date = date;
         this.title=title;
         this.notes = notes;
+        this.user=user;
     }
 
 
-    public ToDoLists() {
+    public ToDoList() {
     }
 }
