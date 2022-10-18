@@ -2,6 +2,8 @@ package com.example.toDo.models;
 
 import lombok.Getter;
 import lombok.Setter;
+import net.bytebuddy.dynamic.TypeResolutionStrategy;
+import org.springframework.data.util.Lazy;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -16,7 +18,7 @@ public class ToDoList {
     private Long toDoListsId;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
+    @JoinColumn(name = "user_username")
     private User user;
 
     @DateTimeFormat

@@ -39,11 +39,10 @@ public class UserService implements UserDetailsService {
         usersRepository.save(user);
         return true;
     }
-     /*public User findByLoginAndPassword(String login,String password) throws UsernameNotFoundException {
-        User users = loadUserByUsername(login);
-        if(users != null && new BCryptPasswordEncoder().matches(password, users.getPassword())){
-        return users;
-        }
-        return null;
-     }*/
+
+    public void userDelete(User user){
+
+        usersRepository.delete(user);
+
+    }
 }

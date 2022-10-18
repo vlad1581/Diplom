@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import javax.sql.rowset.spi.SyncResolver;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -25,7 +26,7 @@ public class ToDoListsPageController {
     @GetMapping("/toDoListsPage")
     private String toDoListsPage( @AuthenticationPrincipal User user, Model model) {
 
-       ToDoList toDoLists = toDoListsRepository.findByUser(user);
+       List<ToDoList> toDoLists = toDoListsRepository.findAllByUser(user);
         model.addAttribute("toDoLists", toDoLists);
         return "toDoListsPage";
     }
