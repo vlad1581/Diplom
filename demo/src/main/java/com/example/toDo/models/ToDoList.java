@@ -28,12 +28,13 @@ public class ToDoList {
     private String title;
     private String notes;
 
-    public ToDoList(String planningDate, String date, String title, String notes,User user) {
+    public ToDoList(String planningDate, String date, String title, String notes, User user) {
         this.planningDate = planningDate;
         this.date = date;
         this.title=title;
         this.notes = notes;
         this.user=user;
+
     }
 
 

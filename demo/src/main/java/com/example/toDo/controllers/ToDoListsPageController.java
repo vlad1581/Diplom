@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import javax.sql.rowset.spi.SyncResolver;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -24,13 +25,13 @@ public class ToDoListsPageController {
     @GetMapping("/toDoListsPage")
     private String toDoListsPage( @AuthenticationPrincipal User user, Model model) {
 
-        Iterable<ToDoList> toDoLists = toDoListsRepository.findAll();
+       ToDoList toDoLists = toDoListsRepository.findByUser(user);
         model.addAttribute("toDoLists", toDoLists);
         return "toDoListsPage";
     }
 
     @GetMapping("/addToDoLists")
-    private String addToDo(@AuthenticationPrincipal User user, Model model) {
+    private String addToDo(@AuthenticationPrincipal ToDoList user, Model model) {
         LocalDateTime date = LocalDateTime.from(LocalDateTime.now());
         model.addAttribute("date",date);
         return "addToDoLists";
@@ -39,7 +40,7 @@ public class ToDoListsPageController {
     @PostMapping("/addToDoLists")
     private String addToDo(@AuthenticationPrincipal User user, @RequestParam String planningDate, @RequestParam String date,
                            @RequestParam String title, @RequestParam String notes, Model model) {
-        ToDoList toDoList = new ToDoList(planningDate,date,title, notes,user);
+        ToDoList toDoList = new ToDoList(planningDate,date,title, notes, user);
         toDoListsRepository.save(toDoList);
         return "redirect:/toDoListsPage";
     }
@@ -83,7 +84,7 @@ public class ToDoListsPageController {
         return "redirect:/toDoListsPage";
     }
     @PostMapping("/toDoListsPage/{toDoListsId}/removeToDoLists")
-    private String removeToDo(@PathVariable(value = "toDoListsId") long toDoListsId,@AuthenticationPrincipal User user, Model model) {
+    private String removeToDo(@PathVariable(value = "toDoListsId") long toDoListsId,@AuthenticationPrincipal String user, Model model) {
         ToDoList toDoList = toDoListsRepository.findById(toDoListsId).orElseThrow();
         toDoListsRepository.delete(toDoList);
         return "redirect:/toDoListsPage";
